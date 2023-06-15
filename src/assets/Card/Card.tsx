@@ -44,12 +44,13 @@ export default function Card({
     };
 
     if (userCard.current) {
-      userCard.current.addEventListener("mousedown", (e) => getCopyMove(e));
+      userCard.current.addEventListener("mousedown", getCopyMove);
     }
     return () => {
       userCard.current?.removeEventListener("mousedown", getCopyMove);
     };
   }, []);
+
   return (
     <div ref={userCard} className="Card">
       <div className="CardImage">

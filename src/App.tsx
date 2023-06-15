@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import Card from "./assets/Card/Card";
 import CardList from "./assets/Lists/List";
@@ -21,21 +21,30 @@ function App() {
     y: 0,
     el: null,
   });
+
   useEffect(() => {
-    document.addEventListener("mouseup", function () {
-      setCopiedDiv({ ...copiedDiv, el: null });
-    });
+    const removeCopy = () => {
+      setCopiedDiv({ x: 0, y: 0, el: null });
+    };
+    document.addEventListener("mouseup", removeCopy);
+
+    return () => {
+      document.removeEventListener("mouseup", removeCopy);
+    };
   }, []);
 
   useEffect(() => {
     const cursorFollow = (e: MouseEvent) => {
-      if (cursorCustom.current) {
+      if (cursorCustom.current && copiedDiv.el !== null) {
         cursorCustom.current.style.left = `${e.clientX - copiedDiv.x}px`;
         cursorCustom.current.style.top = `${e.clientY - copiedDiv.y}px`;
       }
     };
-    if (copiedDiv) {
-      document.addEventListener("mousemove", (e) => cursorFollow(e));
+
+    if (copiedDiv.el) {
+      document.addEventListener("mousemove", cursorFollow);
+    } else {
+      document.removeEventListener("mousemove", cursorFollow);
     }
 
     return () => {
