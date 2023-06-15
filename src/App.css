@@ -1,0 +1,8 @@
+.List {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 12px;
+  height: 700px;
+  background-color: rgb(1, 1, 10);
+}
