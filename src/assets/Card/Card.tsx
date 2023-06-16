@@ -7,6 +7,7 @@ interface ICard {
   name: string;
   username: string;
   cursor: any;
+  selectedBlock: React.MutableRefObject<number>;
   setCopiedDiv: React.Dispatch<
     React.SetStateAction<{
       x: number;
@@ -14,14 +15,20 @@ interface ICard {
       el: JSX.Element | null;
     }>
   >;
+  getCard: React.MutableRefObject<HTMLDivElement | null>;
+  active: boolean;
 }
 
 export default function Card({
+  id,
   image,
   name,
   username,
   cursor,
+  selectedBlock,
   setCopiedDiv,
+  getCard,
+  active,
 }: ICard) {
   const userCard = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
@@ -38,6 +45,7 @@ export default function Card({
       );
 
       setCopiedDiv({ x: e.offsetX, y: e.offsetY, el: getCopy });
+      selectedBlock.current = id;
 
       cursor.current.style.left = `${e.clientX - e.offsetX}px`;
       cursor.current.style.top = `${e.clientY - e.offsetY}px`;
@@ -52,7 +60,14 @@ export default function Card({
   }, []);
 
   return (
-    <div ref={userCard} className="Card">
+    <div
+      ref={(ref) => {
+        userCard.current = ref;
+        getCard.current = ref;
+      }}
+      className={`Card ${active ? "" : "Blocked"}`}
+      data-id={id}
+    >
       <div className="CardImage">
         <img src={image} alt="ProfileIcon" />
       </div>

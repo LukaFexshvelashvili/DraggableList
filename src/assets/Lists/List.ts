@@ -5,25 +5,25 @@ import av4 from "../Images/4.png";
 
 const CardList = [
   {
-    id: 1,
+    id: 0,
     image: av1,
     name: "John",
     username: "JOHN231",
   },
   {
-    id: 2,
+    id: 1,
     image: av2,
     name: "Nicholas Tesla",
     username: "ElectricNom",
   },
   {
-    id: 3,
+    id: 2,
     image: av3,
     name: "Thomas",
     username: "Jhonson_NM",
   },
   {
-    id: 4,
+    id: 3,
     image: av4,
     name: "Carl",
     username: "Carls__",

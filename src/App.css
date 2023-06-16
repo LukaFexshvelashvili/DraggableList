@@ -1,8 +1,21 @@
 .List {
+  position: relative;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding: 12px;
   height: 700px;
   background-color: rgb(1, 1, 10);
+}
+.List .LineShow {
+  position: absolute;
+  height: 2px;
+  top: 3px;
+  width: calc(100% - 24px);
+  background-color: rgba(255, 255, 255, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 2;
 }
